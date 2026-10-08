@@ -1,0 +1,24 @@
+{
+  "name": "adlens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Open-source publisher advertising research with inspectable evidence",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env backend/server.mjs",
+    "test": "node --test test/*.test.mjs",
+    "check": "node --check backend/server.mjs && node --check backend/capture.mjs && node --check dist/app.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "ipaddr.js": "2.2.0",
+    "playwright": "1.64.0"
+  },
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "fake-indexeddb": "6.0.1",
+    "jsdom": "26.1.0"
+  }
+}
