@@ -11,6 +11,8 @@ Built for creative strategists, agency researchers and marketing teams. It descr
 Requires Node.js 22 or newer. On Windows, use PowerShell; on macOS/Linux, use a terminal.
 
 ```sh
+git clone https://github.com/canmils/adlens.git
+cd adlens
 npm ci
 npx playwright install chromium
 cp .env.example .env
@@ -71,3 +73,15 @@ Tests cover URL/network safeguards, CSV formula handling, provider request struc
 ## Contribution and license
 
 Apache License 2.0. Captured third-party advertisements are not relicensed by the code license. Use synthetic or explicitly licensed fixtures in contributions. See `CONTRIBUTING.md` and `SECURITY.md`.
+
+## Update, troubleshoot and contribute
+
+Stop the app with Ctrl+C. Back up your own configuration, inputs and outputs first. Run `git status`; commit tracked edits on a branch before pulling. Then `git pull --ff-only` and reinstall dependencies with the same environment/package manager used above. Restart with the documented run command. Resolve divergent history instead of forcing away changes.
+
+Missing command: install the prerequisite and reopen the terminal. Missing module: use the same interpreter/package manager for install and run. Missing file: check the repository root and sample setup. Port busy: stop the earlier server. Provider failure: check key, credit, model access and connectivity; repeated calls can incur another charge.
+
+Report bugs or suggest changes at https://github.com/canmils/adlens/issues. Include OS/runtime, commit, exact command, safe sample, sanitized error and expected/actual result. See [CONTRIBUTING.md](CONTRIBUTING.md) for fork → branch → test → pull request. Never share keys or private company data.
+
+See [ONBOARDING_CHECKS.md](ONBOARDING_CHECKS.md) for checks actually run and limits.
+
+Back up server `data/` and download important browser-held crops; CSV metadata is not an image backup. Browser IndexedDB is separate from server files.
