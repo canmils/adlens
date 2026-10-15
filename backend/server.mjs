@@ -8,7 +8,7 @@ import {analyse} from './analysis.mjs';
 import {validateUrl} from './security.mjs';
 
 const root=path.resolve(fileURLToPath(new URL('..',import.meta.url)));
-const data=path.join(root,'data'); await mkdir(data,{recursive:true});
+const data=path.resolve(process.env.ADLENS_DATA_DIR||path.join(root,'data')); await mkdir(data,{recursive:true});
 const storePath=path.join(data,'jobs.json');
 let jobs=[]; try{jobs=JSON.parse(await readFile(storePath,'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;}
 for(const job of jobs) if(job.status==='capturing'){job.status='failed';job.error='Server restarted during capture.';}

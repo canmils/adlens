@@ -8,6 +8,7 @@ export async function capture(job, persist, {signal}={}) {
     job.stage = 'Opening page'; await persist();
     const env = Object.fromEntries(['PATH','HOME','TMPDIR','DISPLAY','LANG','LD_LIBRARY_PATH'].filter(k=>process.env[k]).map(k=>[k,process.env[k]]));
     browser = await chromium.launch({headless:true,env});
+    if(signal?.aborted) throw new Error('Capture cancelled.');
     signal?.addEventListener('abort', () => browser?.close().catch(()=>{}), {once:true});
     const context = await browser.newContext({viewport:{width:1440,height:1000},locale:'en-GB',timezoneId:'Europe/Madrid',serviceWorkers:'block',acceptDownloads:false});
     // Defence in depth. Deploy the worker with an outbound firewall as well: DNS

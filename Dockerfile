@@ -1,7 +1,8 @@
 FROM node:22-bookworm-slim
 WORKDIR /app
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 COPY package*.json ./
-RUN npm ci && npx playwright install --with-deps chromium
+RUN npm ci && npx playwright install --with-deps chromium && chmod -R a+rX /ms-playwright
 COPY backend ./backend
 COPY dist ./dist
 RUN mkdir -p /app/data && chown -R node:node /app

@@ -1,7 +1,34 @@
 # Onboarding verification
 
-Date: 2026-10-14. Local Linux checks, Python 3.12 and Node 22/24 as applicable.
+## 15 October 2026
 
-npm dependencies installed; 8 tests and syntax checks passed. Local HTTP interface returned 200. Chromium download failed here with an invalid/truncated archive, so real capture and browser end-to-end behavior remain unverified.
+- Fresh `npm ci` completed on Linux, Node 24.
+- Eight existing offline tests passed: security, provider contract, HTTP auth/missing-key,
+  and frontend notes/filtering with jsdom and IndexedDB fixtures.
+- Source syntax checked with `npm run check`.
+- Chromium installation failed locally with a truncated/invalid download archive.
+  No local real-browser or live Marca capture is therefore claimed as successful.
 
-Windows/macOS commands are documented but native execution on those systems was not performed. Passing a build or mocked test does not certify live data availability, AI quality, public-hosting security or commercial value. Remote GitHub Actions must be checked separately. The local environment disconnected during an additional clean-install check; no unavailable check is marked as passed.
+## Added validation paths
+
+- `npm run test:browser`: actual Chromium screenshot generation, upload, coordinate preview/crop,
+  manual notes, PNG/CSV download, reload persistence and confirmed deletion. No OpenAI key or
+  real advertisements are used. Server data is isolated in a temporary directory.
+- `npm run example`: generates an authored PNG from the fictional HTML fixture.
+- `node scripts/check-live.mjs https://www.marca.com`: distinct live observation, records success,
+  blocking or failure. A failed capture is never described as evidence of detected ads.
+- Docker image now installs Chromium in `/ms-playwright`, accessible to non-root `node`.
+  CI launches Chromium and takes a synthetic screenshot as that application user.
+- CI fast tests run on Ubuntu and Windows; the browser job runs on Ubuntu.
+
+See the [workflow history](https://github.com/canmils/adlens/actions/workflows/checks.yml)
+for the run matching your commit. A configured test is not proof that it passed. Live observation
+is uploaded as `live-capture-observation`; that step allows blocked sites explicitly, so inspect
+its status rather than inferring live compatibility from a green workflow.
+
+## Remaining limits
+
+Paid OpenAI accuracy, general website detection quality, native macOS execution, accessibility
+compliance and remote deployment isolation are not established. CSV is metadata, not a complete
+workspace backup. Browser IndexedDB remains separate from server data; no bulk restore tool exists.
+Passing synthetic tests does not establish demand, time savings or commercial readiness.

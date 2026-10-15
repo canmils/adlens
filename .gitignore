@@ -4,3 +4,5 @@ data/
 test-output/
 *.zip
 *.tar.gz
+
+examples/generated.png

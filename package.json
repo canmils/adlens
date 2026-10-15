@@ -7,7 +7,9 @@
   "scripts": {
     "start": "node --env-file-if-exists=.env backend/server.mjs",
     "test": "node --test test/*.test.mjs",
-    "check": "node --check backend/server.mjs && node --check backend/capture.mjs && node --check dist/app.js"
+    "check": "node --check backend/server.mjs && node --check backend/capture.mjs && node --check dist/app.js && node --check backend/security.mjs && node --check backend/analysis.mjs",
+    "test:browser": "node --test test/browser/*.test.mjs",
+    "example": "node scripts/create-example.mjs"
   },
   "engines": {
     "node": ">=22"

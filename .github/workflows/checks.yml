@@ -2,7 +2,10 @@ name: Checks
 on: [push, pull_request]
 jobs:
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -12,3 +15,30 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run check
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - name: Observe live Marca capture (blocking is a recorded outcome, not proof of success)
+        run: node scripts/check-live.mjs https://www.marca.com --allow-blocked
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-capture-observation
+          path: test-output/live-capture.json
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t adlens-check .
+      - name: Verify Chromium runs as the application user
+        run: >-
+          docker run --rm adlens-check node --input-type=module -e
+          "import {chromium} from 'playwright'; const browser=await chromium.launch({headless:true}); const page=await browser.newPage(); await page.setContent('<h1>Fictional capture</h1>'); await page.screenshot(); await browser.close();"
