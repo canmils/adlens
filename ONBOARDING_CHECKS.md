@@ -9,6 +9,23 @@
 - Chromium installation failed locally with a truncated/invalid download archive.
   No local real-browser or live Marca capture is therefore claimed as successful.
 
+## Confirmed GitHub results
+
+[Implementation run 38710017238](https://github.com/canmils/adlens/actions/runs/38710017238)
+for commit `b3028b2374a7219a863296e9587ea044f9e5a2bd` passed:
+
+- Eight offline tests on both Ubuntu and Windows.
+- Real Chromium onboarding: generated fictional PNG, upload, crop preview/save, manual notes,
+  evidence PNG and CSV downloads, reload persistence and confirmed deletion.
+- Docker Chromium launch and synthetic screenshot as the non-root application user.
+- Live Marca observation at 2026-10-15 09:03 UTC: status `review`, page title returned and
+  screenshot available, **zero candidates detected**. This validates page capture on that visit,
+  not successful ad detection or absence of advertising. Live AI remains untested.
+
+The browser test initially exposed a real evidence-download failure: fetching a data URL
+was blocked by the existing Content Security Policy. Download now constructs a Blob directly
+from the local image bytes, without loosening that policy; the browser regression passed.
+
 ## Added validation paths
 
 - `npm run test:browser`: actual Chromium screenshot generation, upload, coordinate preview/crop,
