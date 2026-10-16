@@ -2,6 +2,12 @@
 
 Open-source advertising research from the ads visible on publisher pages.
 
+![Selecting the ad region in a screenshot, then previewing the crop](docs/review-crop.png)
+
+![A saved creative with its crop and the manual notes: advertiser, copy, call to action](docs/creative-detail.png)
+
+*Real AdLens screens on the bundled fictional example. No AI key used. Regenerate with `npm run screenshots`.*
+
 **Input:** a public website URL or an uploaded screenshot. **Output:** reviewed ad crops, visible copy, offers, CTAs, creative categories, evidence and CSV exports. **Value:** less manual screenshot organisation and a traceable reference collection for creative briefs.
 
 Built for creative strategists, agency researchers and marketing teams. It describes a sampled visit; it cannot establish competitor spend, actual targeting, conversions, revenue or winning campaigns. Accepts general public URLs, but capture is best effort and some sites block access or do not render ads.
